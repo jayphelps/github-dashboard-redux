@@ -1,4 +1,7 @@
 <div class="container">
-  <h4>hello world</h4>
+  {{#frontside-container as |state|}}
+    {{#each state.members as |member|}}
+      {{member.name}}
+    {{/each}}
+  {{/frontside-container}}
 </div>
-{{outlet}}

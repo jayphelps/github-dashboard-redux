@@ -1,4 +1,9 @@
-import Ember from 'ember';
+import route from 'ember-redux/route';
+// import { requestRepos } from '../reducers/repos';
 
-export default Ember.Route.extend({
-});
+const model = (dispatch) => {
+  return dispatch({ type: 'REQUEST_MEMBERS', org: 'thefrontside' });
+  // return dispatch(requestRepos('thefrontside'));
+}
+
+export default route({ model })();
