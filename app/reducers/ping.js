@@ -1,10 +1,18 @@
-export default function ping(state = { isPinging: false }, action) {
+import immutable from 'npm:immutable';
+
+const { Record } = immutable;
+
+const Ping = Record({
+  isPinging: false
+});
+
+export default function ping(state = new Ping(), action) {
   switch (action.type) {
     case 'PING':
-      return { isPinging: true }
+      return state.set('isPinging', true)
 
     case 'PONG':
-      return { isPinging: false }
+      return state.set('isPinging', false)
 
     default:
       return state;
