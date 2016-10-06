@@ -17,6 +17,7 @@ Router.map(function() {
       path: ':repo_name'
     });
   });
+  this.route('ping');
 });
 
 export default Router;
