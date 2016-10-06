@@ -4,15 +4,15 @@ import effects from 'npm:redux-saga/effects';
 const { takeEvery } = saga;
 const { call, put } = effects;
 
-import { deserializeRepos } from '../reducers/repos';
+import { deserializeRepos } from '../actions/index';
 
-const githubRepos = (org) => {
-  return fetch(`https://api.github.com/orgs/${org}/repos`)
+const githubRepos = () => {
+  return fetch(`https://api.github.com/orgs/thefrontside/repos`)
     .then(response => response.json());
 };
 
-function* fetchRepos(action) {
-  const repos = yield call(githubRepos, action.org);
+function* fetchRepos() {
+  const repos = yield call(githubRepos);
   yield put(deserializeRepos(repos));
 }
 

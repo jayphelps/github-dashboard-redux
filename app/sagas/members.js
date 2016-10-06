@@ -1,28 +1,25 @@
-import Ember from 'ember';
-import fetch from 'ember-network/fetch';
-import saga from 'npm:redux-saga';
 import effects from 'npm:redux-saga/effects';
-const { takeEvery } = saga;
-const { call, put } = effects;
+const { put, take } = effects;
 
-const { RSVP } = Ember;
+import { deserializeMembers, makeRequest } from '../actions/index';
 
-const getMembersList = (org) => {
-  return fetch(`https://api.github.com/orgs/${org}/members`)
-    .then(res => res.json());
-};
-
-const lookupMemberInfo = (membersList) => {
-  let promises = membersList.map(member => fetch(member.url));
-  return RSVP.map(promises, (member) => member.json());
-};
-
-function* fetchMembers(action) {
-  const membersList = yield(call(getMembersList, action.org));
-  const members = yield(call(lookupMemberInfo, membersList));
-  yield put({ type: 'DESERIALIZE_MEMBERS', members });
-}
+const membersURL = 'https://api.github.com/orgs/thefrontside/members';
 
 export function* getMembersAsync() {
-  yield takeEvery('REQUEST_MEMBERS', fetchMembers);
+  while (yield take('REQUEST_MEMBERS')) {
+    yield put(makeRequest(membersURL))
+    let { response } = yield take('REQUEST_SUCCEEDED');
+
+    let membersList = response.filter(member => member.login !== 'yesno');
+
+    let members = [];
+
+    for (let member of membersList) {
+      yield put(makeRequest(member.url))
+      let { response: memberInfo } = yield take('REQUEST_SUCCEEDED')
+      yield members.push(memberInfo);
+    }
+
+    yield put(deserializeMembers(members));
+  }
 }

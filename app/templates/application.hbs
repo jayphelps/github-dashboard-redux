@@ -1,7 +1,18 @@
 <div class="container">
-  {{#frontside-container as |state|}}
-    {{#each state.members as |member|}}
-      {{member.name}}
-    {{/each}}
-  {{/frontside-container}}
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="sidebar-nav">
+          {{#link-to "application"}}
+            <h3>The Frontside OSS Dashboard</h3>
+          {{/link-to}}
+        <ul class="nav nav-list">
+          <li>{{link-to "Members" "members"}}</li>
+          <li>{{link-to "Repos" "repos"}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-9">
+      {{outlet}}
+    </div>
+  </div>
 </div>
