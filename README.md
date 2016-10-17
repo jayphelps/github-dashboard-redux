@@ -1,4 +1,6 @@
-# Github-issues
+# Github-Dashboard-Redux
+
+## WIP. This app is basically just a host of different experiments with redux, redux-saga, and redux-observable. The plan is to iterate through the redux ecosystem as I build this into something useful, but right now it's definitely a mess.
 
 This README outlines the details of collaborating on this Ember application.
 A short introduction of this app could easily go here.
@@ -50,4 +52,3 @@ Specify what it takes to deploy your app.
 * Development Browser Extensions
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
-
